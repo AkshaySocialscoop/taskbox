@@ -1,0 +1,28 @@
+[10-Mar-2026 15:57:08 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.34. in /home/websited/laravel-taskbox/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/websited/laravel-taskbox/vendor/composer/autoload_real.php(25): require()
+#1 /home/websited/laravel-taskbox/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/websited/taskbox.digitalbuild.store/index.php(14): require('/home/websited/...')
+#3 {main}
+  thrown in /home/websited/laravel-taskbox/vendor/composer/platform_check.php on line 22
+[14-Mar-2026 07:34:19 UTC] PHP Warning:  require(/home/websited/taskbox.digitalbuild.store/../laravel-taskbox/vendor/autoload.php): Failed to open stream: No such file or directory in /home/websited/taskbox.digitalbuild.store/index.php on line 14
+[14-Mar-2026 07:34:19 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/websited/taskbox.digitalbuild.store/../laravel-taskbox/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/websited/taskbox.digitalbuild.store/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/websited/taskbox.digitalbuild.store/index.php on line 14
+[14-Mar-2026 10:58:07 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 65011744 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 1573
+[14-Mar-2026 11:01:25 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 65011744 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 1573
+[14-Mar-2026 11:11:39 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 65011744 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 1573
+[14-Mar-2026 11:12:03 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 84465184 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/laravel/framework/src/Illuminate/Support/helpers.php on line 137
+[14-Mar-2026 11:28:49 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 55847304 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 12:44:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 84465184 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/laravel/framework/src/Illuminate/Support/helpers.php on line 137
+[14-Mar-2026 12:44:51 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035872 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:01:37 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035848 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:03:10 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035848 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:03:55 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035872 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:07:16 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035872 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:10:18 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035872 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[14-Mar-2026 13:10:51 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64035872 bytes) in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/vendor/symfony/http-foundation/Request.php on line 548
+[25-Mar-2026 07:04:42 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'redis.so' (tried: /opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so (/opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so: cannot open shared object file: No such file or directory), /opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so.so (/opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[25-Mar-2026 07:04:42 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'redis.so' (tried: /opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so (/opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so: cannot open shared object file: No such file or directory), /opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so.so (/opt/cpanel/ea-php82/root/usr/lib64/php/modules/redis.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Mar-2026 13:02:16 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\MediaController::edit() in /home/websited/taskbox.digitalbuild.store/laravel-taskbox/app/Http/Controllers/MediaController.php on line 165
