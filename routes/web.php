@@ -54,27 +54,6 @@ Route::middleware([
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
-        ->name('google.connect');
-
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])
-        ->name('google.callback');
-
-    Route::get('/google/test-connection', [GoogleAuthController::class, 'testConnection'])
-        ->name('google.test');
-
-    Route::get('/google/chat/test', [GoogleAuthController::class, 'testChat'])
-        ->name('google.chat.test');
-
-    Route::post('/auth/google/disconnect', [GoogleAuthController::class, 'disconnect'])
-        ->name('google.disconnect');
-
-    // Google Chat
-    Route::get('/google/chat', [GoogleChatController::class, 'index'])->name('google.chat');
-    Route::get('/google/chat/{space}/messages', [GoogleChatController::class, 'messages'])->name('google.chat.messages');
-    Route::post('/google/chat/messages', [GoogleChatController::class, 'sendMessage'])->name('google.chat.send');
-
-
     // Attendance Modal Logic
     Route::post('/check-in', [AttendanceController::class, 'checkIn']);
     Route::post('/check-out', [AttendanceController::class, 'checkOut']);
@@ -198,5 +177,4 @@ Route::get('/test-google-config', function () {
     ]);
 });
 
-// integration view rote 
-Route::get('/integration', [IntegrationController::class, 'integrations'])->name('integration');
+

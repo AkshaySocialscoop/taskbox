@@ -122,9 +122,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Shift::class);
     }
-
-    public function googleAccount()
-    {
-        return $this->hasOne(GoogleAccount::class);
-    }
+    
 }

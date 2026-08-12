@@ -97,17 +97,6 @@
            <div class="menu-title">Audit Logs</div>
          </a>
        </li>
-       <li>
-         <a class="has-arrow" href="javascript:;">
-           <div class="parent-icon"><i class="material-icons-outlined">apps</i>
-           </div>
-           <div class="menu-title">Settings</div>
-         </a>
-         <ul>
-            <li><a href="{{ route('integration') }}"><i class="material-icons-outlined">arrow_right</i>Integration</a>
-            </li>
-         </ul>
-       </li>
        @endif
 
        @if($role === 'admin')
