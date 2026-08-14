@@ -168,6 +168,12 @@
        </li>
        @endif
 
+       
+      @if(session()->has('google_email'))
+     <li><a href="{{ route('googlechat.index') }}">Google Chat</a></li>
+     @else
+     <li><a href="{{ route('google.login') }}">Login Google Chat</a></li> 
+     @endif
 
      </ul>
      <!--end navigation-->

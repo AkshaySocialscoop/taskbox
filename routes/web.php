@@ -20,6 +20,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\GoogleChatController;
+use App\Http\Controllers\GoogleController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -167,14 +168,16 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 
-// google auth
-Route::get('/test-google-config', function () {
+/*
+|--------------------------------------------------------------------------
+| Google OAuth (Chat Integration)
+|--------------------------------------------------------------------------
+*/
+Route::get('/googlechat', [GoogleChatController::class, 'index'])->name('googlechat.index');
 
-    return response()->json([
-        'client_id_exists' => !empty(config('google.client_id')),
-        'client_secret_exists' => !empty(config('google.client_secret')),
-        'redirect_uri' => config('google.redirect_uri'),
-    ]);
-});
+// Google login flow
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
 
-
+// Google logout (only clears Google session, not Breeze user auth)
+Route::post('auth/google/logout', [GoogleController::class, 'logout'])->name('google.logout');
