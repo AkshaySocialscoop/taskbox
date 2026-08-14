@@ -13,10 +13,19 @@ class GoogleController extends Controller
     public function redirect()
     {
     return Socialite::driver('google')
-        ->scopes(['openid', 'profile', 'email'])
-        ->with(['prompt' => 'select_account']) 
+        ->scopes([
+            'openid',
+            'profile',
+            'email',
+            'https://www.googleapis.com/auth/chat.spaces.readonly', // read spaces
+            'https://www.googleapis.com/auth/chat.messages.readonly',
+            'https://www.googleapis.com/auth/chat.memberships.readonly'
+            // 'https://www.googleapis.com/auth/chat.bot'              
+        ])
+        ->with(['prompt' => 'select_account'])
         ->redirect();
     }
+
 
     public function callback()
 {
@@ -29,6 +38,8 @@ class GoogleController extends Controller
             'google_name'  => $googleUser->name,
             'google_email' => $googleUser->email,
             'google_avatar'=> $googleUser->avatar,
+            'google_token' => $googleUser->token,
+            'google_refresh_token' => $googleUser->refreshToken,
         ]);
 
         return redirect()->route('googlechat.index');

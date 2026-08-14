@@ -181,3 +181,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name(
 
 // Google logout (only clears Google session, not Breeze user auth)
 Route::post('auth/google/logout', [GoogleController::class, 'logout'])->name('google.logout');
+
+Route::get('/googlechat/{space}/messages', [GoogleChatController::class, 'messages'])
+    ->name('googlechat.messages');
+
