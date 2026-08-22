@@ -34,6 +34,13 @@ class User extends Authenticatable
         'role',
         'department_id',
         'company_id',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
+        'google_token_expires_at',
+        'google_name',
+        'google_email',
+        'google_avatar',
     ];
 
     public function isSuperAdmin()

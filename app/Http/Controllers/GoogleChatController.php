@@ -4,87 +4,90 @@ namespace App\Http\Controllers;
 
 use App\Services\GoogleChatService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class GoogleChatController extends Controller
 {
-    /**
-     * Show spaces and optionally messages if a space is selected.
-     */
     public function index(Request $request, GoogleChatService $chatService)
     {
         try {
-            // Ensure user is authenticated with Google
-            if (!session()->has('google_token')) {
-                return view('googlechat.index', [
-                    'spaces'   => [],
-                    'messages' => []
-                ]);
+            // Check if user is logged in
+            if (!Auth::check()) {
+                return redirect()->route('login')
+                    ->with('error', 'Please login first.');
             }
 
-            $token   = session('google_token');
-            $spaces  = $chatService->listSpaces($token);
+            $user = Auth::user();
+
+            // Check Google connection
+            $hasGoogle = !empty($user->google_id);
+            $tokenExpired = $user->google_token_expires_at && now()->gte($user->google_token_expires_at);
+
+            // Google user data
+            $googleUser = null;
+            if ($hasGoogle) {
+                $googleUser = [
+                    'name' => $user->google_name,
+                    'email' => $user->google_email,
+                    'avatar' => $user->google_avatar,
+                ];
+            }
+
+            $spaces = [];
+            $selectedSpace = null;
             $messages = [];
 
-            // If a space is selected, fetch its messages
-            if ($request->has('space')) {
-                $messages = $chatService->listMessages($token, $request->space);
+            if ($hasGoogle && !$tokenExpired) {
+                // Get spaces
+                $result = $chatService->listSpaces($user);
+                $spaces = $result['spaces'] ?? [];
 
-                // Resolve sender names safely
-                foreach ($messages as &$msg) {
-                    if (!empty($msg['sender']['name'])) {
-                        try {
-                            $userInfo = $chatService->getUserInfo($token, $msg['sender']['name']);
-                            $msg['sender']['displayName'] = $userInfo['displayName'] ?? $msg['sender']['name'];
-                            $msg['sender']['avatar']      = $userInfo['avatar'] ?? null;
-                            $msg['sender']['email']       = $userInfo['email'] ?? null;
-                        } catch (\Exception $e) {
-                            Log::error("Failed to fetch user info: " . $e->getMessage());
-                            $msg['sender']['displayName'] = $msg['sender']['name'];
+                // If space selected
+                if ($request->has('space')) {
+                    $spaceName = $request->space;
+
+                    // Find selected space
+                    foreach ($spaces as $space) {
+                        if ($space['name'] === $spaceName) {
+                            $selectedSpace = $space;
+                            break;
                         }
+                    }
+
+                    // Get messages
+                    if ($selectedSpace) {
+                        $messagesResult = $chatService->getMessages($user, $spaceName);
+                        $messages = $messagesResult['messages'] ?? [];
                     }
                 }
             }
 
             return view('googlechat.index', [
-                'id'       => session('google_id'),
-                'name'     => session('google_name'),
-                'email'    => session('google_email'),
-                'avatar'   => session('google_avatar'),
-                'spaces'   => $spaces,
+                'user' => $user,
+                'googleUser' => $googleUser,
+                'spaces' => $spaces,
+                'selectedSpace' => $selectedSpace,
                 'messages' => $messages,
+                'has_google' => $hasGoogle,
+                'token_expired' => $tokenExpired,
+                'total_spaces' => count($spaces),
             ]);
+
         } catch (\Exception $e) {
-            Log::error("GoogleChatController@index error: " . $e->getMessage());
+            Log::error('GoogleChatController error: '.$e->getMessage());
+
             return view('googlechat.index', [
-                'spaces'   => [],
+                'user' => Auth::user(),
+                'googleUser' => null,
+                'spaces' => [],
+                'selectedSpace' => null,
                 'messages' => [],
-                'error'    => 'Unable to load Google Chat data. Please try again later.'
+                'has_google' => false,
+                'token_expired' => false,
+                'total_spaces' => 0,
+                'error' => 'Unable to load page. Please try again later.',
             ]);
-        }
-    }
-
-    /**
-     * Dedicated messages view (optional if you want separate page).
-     */
-    public function messages(GoogleChatService $chatService, $space)
-    {
-        try {
-            if (!session()->has('google_token')) {
-                return redirect()->route('googlechat.index');
-            }
-
-            $token    = session('google_token');
-            $messages = $chatService->listMessages($token, $space);
-
-            return view('googlechat.messages', [
-                'space'    => $space,
-                'messages' => $messages,
-            ]);
-        } catch (\Exception $e) {
-            Log::error("GoogleChatController@messages error: " . $e->getMessage());
-            return redirect()->route('googlechat.index')
-                ->with('error', 'Unable to load messages for this space.');
         }
     }
 }

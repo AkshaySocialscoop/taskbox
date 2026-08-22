@@ -169,11 +169,25 @@
        @endif
 
        
-      @if(session()->has('google_email'))
-     <li><a href="{{ route('googlechat.index') }}">Google Chat</a></li>
-     @else
-     <li><a href="{{ route('google.login') }}">Login Google Chat</a></li> 
-     @endif
+      @php
+    $user = Auth::user();
+    $hasGoogle = $user && $user->google_id;
+@endphp
+
+@if($hasGoogle)
+    <li>
+        <a href="{{ route('googlechat.index') }}" style="display:flex; align-items:center; gap:8px;">
+            <span>💬</span> Google Chat
+            <span style="background:#2ecc71; width:8px; height:8px; border-radius:50%; display:inline-block;"></span>
+        </a>
+    </li>
+@else
+    <li>
+        <a href="{{ route('google.login') }}" style="display:flex; align-items:center; gap:8px;">
+            <span>🔗</span> Connect Google Chat
+        </a>
+    </li>
+@endif
 
      </ul>
      <!--end navigation-->
